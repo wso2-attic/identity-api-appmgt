@@ -24,10 +24,10 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>org.wso2.carbon.identity.application.mgt.bridge</artifactId>
+    <artifactId>org.wso2.carbon.identity.integration.ballerina.function.registration</artifactId>
     <packaging>bundle</packaging>
-    <name>WSO2 Identity - Application Management Bridge Component</name>
-    <description>The Application Management Bridge Component</description>
+    <name>WSO2 Identity - Ballerina Function Registration Component</name>
+    <description>The Ballerina Function Registration Component</description>
     <url>http://wso2.org</url>
 
     <dependencies>
@@ -107,25 +107,15 @@
                             ${project.artifactId}
                         </Bundle-SymbolicName>
                         <Private-Package>
-                            org.wso2.carbon.identity.application.mgt.bridge.internal,
+                            org.wso2.carbon.identity.integration.ballerina.function.registration.internal,
                         </Private-Package>
                         <Import-Package>
                             org.osgi.framework; version="${osgi.framework.imp.pkg.version.range}",
                             org.osgi.service.component; version="${osgi.service.component.imp.pkg.version.range}",
-                            org.apache.commons.lang,
-                            org.apache.commons.logging,
-                            org.wso2.carbon.context,
-                            org.wso2.carbon.user.api,
-                            org.wso2.carbon.user.core.service,
-                            org.wso2.carbon.user.core.tenant,
-                            org.wso2.carbon.identity.application.mgt,
-                            org.wso2.carbon.identity.sso.saml,
-                            org.wso2.carbon.identity.application.common.*,
-                            org.wso2.carbon.identity.core.util,
                         </Import-Package>
                         <Export-Package>
-                            !org.wso2.carbon.identity.application.mgt.bridge.internal,
-                            org.wso2.carbon.identity.application.mgt.bridge.*;
+                            !org.wso2.carbon.identity.integration.ballerina.function.registration.internal,
+                            org.wso2.carbon.identity.integration.ballerina.function.registration.*;
                             version="${identity.api.application.package.export.version}"
                         </Export-Package>
                         <DynamicImport-Package>*</DynamicImport-Package>

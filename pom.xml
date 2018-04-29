@@ -34,6 +34,9 @@
     <modules>
         <module>components/appmgt-builtin</module>
         <module>components/appmgt-bridge-service/org.wso2.carbon.identity.application.mgt.bridge</module>
+        <module>components/c4-b7a/org.wso2.carbon.identity.integration.b7a.spi</module>
+        <module>components/c4-b7a/org.wso2.carbon.identity.integration.ballerina.function.registration</module>
+        <module>components/c4-b7a/org.wso2.carbon.identity.integration.ballerina</module>
     </modules>
 
     <dependencyManagement>
@@ -76,6 +79,11 @@
             <dependency>
                 <groupId>org.wso2.carbon.identity.api.application</groupId>
                 <artifactId>org.wso2.carbon.identity.application.mgt.bridge</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wso2.carbon.identity.api.appmgt</groupId>
+                <artifactId>org.wso2.carbon.identity.integration.b7a.spi</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -136,6 +144,26 @@
                 <version>${ballerina.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.ballerinalang</groupId>
+                <artifactId>ballerina-builtin</artifactId>
+                <version>${ballerina.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ballerinalang</groupId>
+                <artifactId>ballerina-http</artifactId>
+                <version>${ballerina.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ballerinalang</groupId>
+                <artifactId>ballerina-mime</artifactId>
+                <version>${ballerina.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ballerinalang</groupId>
+                <artifactId>ballerina-launcher</artifactId>
+                <version>${ballerina.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.zaxxer</groupId>
                 <artifactId>HikariCP</artifactId>
                 <version>${com.zaxxer.hikaricp.version}</version>
@@ -149,6 +177,11 @@
                 <groupId>org.apache.ws.commons.axiom</groupId>
                 <artifactId>axiom-api</artifactId>
                 <version>${orbit.version.axiom}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet.api.version}</version>
             </dependency>
             <dependency>
                 <groupId>jaxen</groupId>
@@ -274,6 +307,7 @@
 
         <osgi.framework.imp.pkg.version.range>[1.7.0, 2.0.0)</osgi.framework.imp.pkg.version.range>
         <osgi.service.component.imp.pkg.version.range>[1.2.0, 2.0.0)</osgi.service.component.imp.pkg.version.range>
+        <osgi.service.http.imp.pkg.version.range>[1.2.1, 2.0.0)</osgi.service.http.imp.pkg.version.range>
         <identity.api.application.package.export.version>${project.version}
         </identity.api.application.package.export.version>
 
@@ -289,6 +323,11 @@
         <maven.scr.plugin.version>1.24.0</maven.scr.plugin.version>
         <ballerina.version>0.970.0-beta4</ballerina.version>
         <mvn.processor.plugin.version>2.2.4</mvn.processor.plugin.version>
+        <javax.servlet.api.version>3.1.0</javax.servlet.api.version>
+        <imp.pkg.version.javax.servlet>[2.6.0, 3.0.0)</imp.pkg.version.javax.servlet>
+
+        <osgi.core.version>1.4.0</osgi.core.version>
+        <apache.felix.scr.annotation.version>1.2.4</apache.felix.scr.annotation.version>
     </properties>
 
 </project>

@@ -20,7 +20,9 @@ package org.wso2.carbon.identity.application.mgt.bridge.internal;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ballerinalang.model.types.TypeKind;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -30,14 +32,12 @@ import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
 import org.wso2.carbon.identity.application.mgt.ApplicationManagementService;
 import org.wso2.carbon.identity.application.mgt.bridge.ApplicationManagementBridgeService;
-//import org.wso2.carbon.identity.integration.c4b7a.BallerinaFunctionRegistration;
+import org.wso2.carbon.identity.integration.c4b7a.BallerinaFunctionRegistration;
 import org.wso2.carbon.identity.sso.saml.SSOServiceProviderConfigManager;
 import org.wso2.carbon.user.core.service.RealmService;
 
-@Component(
-        name = "identity.application.management.bridge.component",
-        immediate = true
-)
+@Component(name = "identity.application.management.bridge.component",
+           immediate = true)
 public class ApplicationManagementBridgeServiceComponent {
 
     private static Log log = LogFactory.getLog(ApplicationManagementBridgeServiceComponent.class);
@@ -47,13 +47,14 @@ public class ApplicationManagementBridgeServiceComponent {
 
         try {
             BundleContext bundleContext = context.getBundleContext();
-            bundleContext.registerService(ApplicationManagementBridgeService.class,
-                    new ApplicationManagementBridgeService(), null);
+            bundleContext
+                    .registerService(ApplicationManagementBridgeService.class, new ApplicationManagementBridgeService(),
+                            null);
 
-//            ApplicationManagementBridgeServiceDataHolder.getInstance().getBallerinaFunctionRegistration().register
-//                    ("ballerina", "appmgt", "getApplications", new TypeKind[]{TypeKind.INT, TypeKind.INT},
-//                            new TypeKind[]{TypeKind.ARRAY}, "org.wso2.carbon.identity.application.mgt.bridge"
-//                                    + ".GetApplications");
+            ApplicationManagementBridgeServiceDataHolder.getInstance().getBallerinaFunctionRegistration()
+                    .register("ballerina", "appmgt", "getApplications", new TypeKind[] { TypeKind.INT, TypeKind.INT },
+                            new TypeKind[] { TypeKind.ARRAY },
+                            "org.wso2.carbon.identity.application.mgt.bridge.GetApplications");
             if (log.isDebugEnabled()) {
                 log.debug("org.wso2.carbon.identity.application.mgt.bridge bundle is activated");
             }
@@ -70,13 +71,11 @@ public class ApplicationManagementBridgeServiceComponent {
         }
     }
 
-    @Reference(
-            name = "RealmService",
-            service = RealmService.class,
-            cardinality = ReferenceCardinality.MANDATORY,
-            policy = ReferencePolicy.DYNAMIC,
-            unbind = "unsetRealmService"
-    )
+    @Reference(name = "RealmService",
+               service = RealmService.class,
+               cardinality = ReferenceCardinality.MANDATORY,
+               policy = ReferencePolicy.DYNAMIC,
+               unbind = "unsetRealmService")
     protected void setRealmService(RealmService realmService) {
 
         if (log.isDebugEnabled()) {
@@ -93,13 +92,11 @@ public class ApplicationManagementBridgeServiceComponent {
         ApplicationManagementBridgeServiceDataHolder.getInstance().setRealmService(null);
     }
 
-    @Reference(
-            name = "ApplicationManagementService",
-            service = ApplicationManagementService.class,
-            cardinality = ReferenceCardinality.MANDATORY,
-            policy = ReferencePolicy.DYNAMIC,
-            unbind = "unsetApplicationManagementService"
-    )
+    @Reference(name = "ApplicationManagementService",
+               service = ApplicationManagementService.class,
+               cardinality = ReferenceCardinality.MANDATORY,
+               policy = ReferencePolicy.DYNAMIC,
+               unbind = "unsetApplicationManagementService")
     protected void setApplicationManagementService(ApplicationManagementService applicationManagementService) {
 
         if (log.isDebugEnabled()) {
@@ -117,13 +114,11 @@ public class ApplicationManagementBridgeServiceComponent {
         ApplicationManagementBridgeServiceDataHolder.getInstance().setApplicationManagementService(null);
     }
 
-    @Reference(
-            name = "SSOServiceProviderConfigManager",
-            service = SSOServiceProviderConfigManager.class,
-            cardinality = ReferenceCardinality.MANDATORY,
-            policy = ReferencePolicy.DYNAMIC,
-            unbind = "unsetSSOServiceProviderConfigManager"
-    )
+    @Reference(name = "SSOServiceProviderConfigManager",
+               service = SSOServiceProviderConfigManager.class,
+               cardinality = ReferenceCardinality.MANDATORY,
+               policy = ReferencePolicy.DYNAMIC,
+               unbind = "unsetSSOServiceProviderConfigManager")
     protected void setSSOServiceProviderConfigManager(SSOServiceProviderConfigManager ssoServiceProviderConfigManager) {
 
         if (log.isDebugEnabled()) {
@@ -133,34 +128,34 @@ public class ApplicationManagementBridgeServiceComponent {
                 .setSsoServiceProviderConfigManager(ssoServiceProviderConfigManager);
     }
 
-    protected void unsetSSOServiceProviderConfigManager(SSOServiceProviderConfigManager
-                                                                ssoServiceProviderConfigManager) {
+    protected void unsetSSOServiceProviderConfigManager(
+            SSOServiceProviderConfigManager ssoServiceProviderConfigManager) {
 
         if (log.isDebugEnabled()) {
             log.debug("Un-setting the SSO Service Provider Config Manager.");
         }
         ApplicationManagementBridgeServiceDataHolder.getInstance().setSsoServiceProviderConfigManager(null);
     }
-//
-//    @Reference(name = "BallerinaFunctionRegistration",
-//               service = BallerinaFunctionRegistration.class,
-//               cardinality = ReferenceCardinality.MANDATORY,
-//               policy = ReferencePolicy.DYNAMIC,
-//               unbind = "unsetBallerinaFunctionRegistration")
-//    public void setBallerinaFunctionRegistration(BallerinaFunctionRegistration ballerinaFunctionRegistration) {
-//
-//        if (log.isDebugEnabled()) {
-//            log.debug("Setting the Ballerina Function Registration.");
-//        }
-//        ApplicationManagementBridgeServiceDataHolder.getInstance()
-//                .setBallerinaFunctionRegistration(ballerinaFunctionRegistration);
-//    }
-//
-//    public void unsetBallerinaFunctionRegistration(BallerinaFunctionRegistration ballerinaFunctionRegistration) {
-//
-//        if (log.isDebugEnabled()) {
-//            log.debug("Un-setting the Ballerina Function Registration.");
-//        }
-//        ApplicationManagementBridgeServiceDataHolder.getInstance().setBallerinaFunctionRegistration(null);
-//    }
+
+    @Reference(name = "BallerinaFunctionRegistration",
+               service = BallerinaFunctionRegistration.class,
+               cardinality = ReferenceCardinality.MANDATORY,
+               policy = ReferencePolicy.DYNAMIC,
+               unbind = "unsetBallerinaFunctionRegistration")
+    public void setBallerinaFunctionRegistration(BallerinaFunctionRegistration ballerinaFunctionRegistration) {
+
+        if (log.isDebugEnabled()) {
+            log.debug("Setting the Ballerina Function Registration.");
+        }
+        ApplicationManagementBridgeServiceDataHolder.getInstance()
+                .setBallerinaFunctionRegistration(ballerinaFunctionRegistration);
+    }
+
+    public void unsetBallerinaFunctionRegistration(BallerinaFunctionRegistration ballerinaFunctionRegistration) {
+
+        if (log.isDebugEnabled()) {
+            log.debug("Un-setting the Ballerina Function Registration.");
+        }
+        ApplicationManagementBridgeServiceDataHolder.getInstance().setBallerinaFunctionRegistration(null);
+    }
 }
