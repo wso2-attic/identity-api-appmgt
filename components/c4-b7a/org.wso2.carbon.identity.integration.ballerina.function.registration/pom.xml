@@ -118,7 +118,6 @@
                             org.wso2.carbon.identity.integration.ballerina.function.registration.*;
                             version="${identity.api.application.package.export.version}"
                         </Export-Package>
-                        <DynamicImport-Package>*</DynamicImport-Package>
                     </instructions>
                 </configuration>
             </plugin>

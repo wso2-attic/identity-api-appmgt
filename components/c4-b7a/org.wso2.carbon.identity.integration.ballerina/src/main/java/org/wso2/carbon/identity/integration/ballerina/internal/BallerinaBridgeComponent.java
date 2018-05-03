@@ -53,10 +53,15 @@ public class BallerinaBridgeComponent {
     @Activate
     protected void activate(ComponentContext componentContext) {
 
-        String carbonHome = System.getProperty("carbon.home");
-        activateB7a(carbonHome);
-        activateServletTransport(componentContext);
-        log.info("Started ballerina ");
+        try {
+
+            String carbonHome = System.getProperty("carbon.home");
+            activateB7a(carbonHome);
+            activateServletTransport(componentContext);
+            log.info("Started ballerina.");
+        } catch (Throwable e) {
+            log.error("Failed to start ballerina.", e);
+        }
     }
 
     private void activateB7a(String carbonHome) {

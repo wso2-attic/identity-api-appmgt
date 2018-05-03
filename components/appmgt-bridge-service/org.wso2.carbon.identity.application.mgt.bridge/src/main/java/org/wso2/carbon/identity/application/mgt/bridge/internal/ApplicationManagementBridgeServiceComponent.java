@@ -47,8 +47,12 @@ public class ApplicationManagementBridgeServiceComponent {
 
         try {
             BundleContext bundleContext = context.getBundleContext();
+            ApplicationManagementBridgeService applicationManagementBridgeService = new
+                    ApplicationManagementBridgeService();
+            ApplicationManagementBridgeServiceDataHolder.getInstance().setApplicationManagementBridgeService
+                    (applicationManagementBridgeService);
             bundleContext
-                    .registerService(ApplicationManagementBridgeService.class, new ApplicationManagementBridgeService(),
+                    .registerService(ApplicationManagementBridgeService.class, applicationManagementBridgeService,
                             null);
 
             ApplicationManagementBridgeServiceDataHolder.getInstance().getBallerinaFunctionRegistration()
